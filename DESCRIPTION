@@ -1,0 +1,17 @@
+Package: rcellminerPubchem
+Title: rcellminerPubchem
+Version: 0.01
+Author: Augustin Luna
+Maintainer: Augustin Luna <lunaa@cbio.mskcc.org>
+Description: A collection of R functions to convert to/from NSCs using PubChem
+License: LGPL-3
+Depends:
+    R (>= 3.1.1),
+    RCurl,
+    stringr,
+    XML, 
+    simpleRCache,
+    httr
+LazyData: true
+VignetteBuilder: knitr
+RoxygenNote: 6.0.1

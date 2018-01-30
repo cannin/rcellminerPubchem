@@ -1,29 +1,16 @@
-# README #
+# Open Project
 
-This README would normally document whatever steps are necessary to get your application up and running.
+Open Rproj file in RStudio 
 
-### What is this repository for? ###
+# Install Dependencies 
+    if (!"devtools" %in% installed.packages()) install.packages("devtools")
+    
+    setRepositories(ind=1:6)
+    library(devtools)
 
-* Quick summary
-* Version
-* [Learn Markdown](https://bitbucket.org/tutorials/markdowndemo)
+    install_deps(".") 
 
-### How do I get set up? ###
+# Run Vignette
 
-* Summary of set up
-* Configuration
-* Dependencies
-* Database configuration
-* How to run tests
-* Deployment instructions
+Open vignette (Rmd files) from vignettes/ folder and use "Knit HTML" button to generate the HTML file.
 
-### Contribution guidelines ###
-
-* Writing tests
-* Code review
-* Other guidelines
-
-### Who do I talk to? ###
-
-* Repo owner or admin
-* Other community or team contact
