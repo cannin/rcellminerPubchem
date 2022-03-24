@@ -33,6 +33,4 @@ getNscsFromChebi("CHEBI:9710")
 \author{
 Augustin Luna (augustin@mail.nih.gov)
 }
-\concept{
-rcellminerPubchem
-}
+\concept{rcellminerPubchem}

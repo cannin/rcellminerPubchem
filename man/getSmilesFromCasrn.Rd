@@ -22,6 +22,4 @@ getSmilesFromCasrn("119413-54-6")
 \author{
 Augustin Luna (augustin@mail.nih.gov)
 }
-\concept{
-rcellminerPubchem
-}
+\concept{rcellminerPubchem}

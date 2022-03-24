@@ -22,6 +22,4 @@ getIsomericSmilesFromCid("1030")
 \author{
 Augustin Luna (augustin@mail.nih.gov)
 }
-\concept{
-rcellminerPubchem
-}
+\concept{rcellminerPubchem}

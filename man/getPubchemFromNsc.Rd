@@ -29,6 +29,4 @@ getPubchemFromNsc("94600", "sid") #Should be: 399733
 \author{
 Augustin Luna (augustin@mail.nih.gov)
 }
-\concept{
-rcellminerPubchem
-}
+\concept{rcellminerPubchem}

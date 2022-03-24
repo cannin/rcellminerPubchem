@@ -21,6 +21,4 @@ Get NSCs from PubChem CID
 results <- getNscsFromCid("5284373", FALSE)
 
 }
-\concept{
-rcellminerPubchem
-}
+\concept{rcellminerPubchem}

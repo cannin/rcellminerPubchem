@@ -24,6 +24,4 @@ getNameFromSynonyms("17-AAG")
 \author{
 Augustin Luna (augustin@mail.nih.gov)
 }
-\concept{
-rcellminerPubchem
-}
+\concept{rcellminerPubchem}

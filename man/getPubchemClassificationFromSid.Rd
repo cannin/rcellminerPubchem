@@ -26,6 +26,4 @@ getPubchemClassificationFromSid("53790588")
 \author{
 Augustin Luna (augustin@mail.nih.gov)
 }
-\concept{
-rcellminerPubchem
-}
+\concept{rcellminerPubchem}
