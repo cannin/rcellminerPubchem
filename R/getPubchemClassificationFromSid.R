@@ -22,7 +22,7 @@ getPubchemClassificationFromSid <- function(sid, debug=TRUE) {
 	}
 	
 	# Get the CID first
-	url <- paste("http://pubchem.ncbi.nlm.nih.gov/rest/pug/substance/sid/", sid, "/cids/TXT", sep="")
+	url <- paste("https://pubchem.ncbi.nlm.nih.gov/rest/pug/substance/sid/", sid, "/cids/TXT", sep="")
 
 	if(debug) {		
 		cat("URL: ", url, "\n")
@@ -32,7 +32,7 @@ getPubchemClassificationFromSid <- function(sid, debug=TRUE) {
 	cid <- strsplit(results, "\n")[[1]]
 
 	# http://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/cid/266552/classification/JSON?classification_type=original
-	url <- paste("http://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/cid/", cid, "/classification/JSON?classification_type=original", sep="")
+	url <- paste("https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/cid/", cid, "/classification/JSON?classification_type=original", sep="")
 
 	if(debug) {		
 		cat("URL: ", url, "\n")

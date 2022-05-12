@@ -18,7 +18,7 @@ getIsomericSmilesFromCid <- function(id, debug=TRUE) {
 		cat("ID: ", id, "\n")
 	}
 
-	url <- paste("http://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/cid/", id, "/property/IsomericSMILES/TXT", sep="")
+	url <- paste("https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/cid/", id, "/property/IsomericSMILES/TXT", sep="")
 
 	if(debug) {		
 		cat("URL: ", url, "\n")

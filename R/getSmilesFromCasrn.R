@@ -20,7 +20,7 @@ getSmilesFromCasrn <- function(casrn, debug=TRUE) {
 		cat("CasRN: ", casrn, "\n")
 	}
 
-	url <- paste("http://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/xref/RN/", casrn, "/property/CanonicalSMILES/TXT", sep="")
+	url <- paste("https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/xref/RN/", casrn, "/property/CanonicalSMILES/TXT", sep="")
 
 	if(debug) {		
 		cat("URL: ", url, "\n")

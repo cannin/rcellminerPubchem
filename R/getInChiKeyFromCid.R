@@ -18,7 +18,7 @@ getInChiKeyFromCid <- function(id, debug=TRUE) {
 		cat("ID: ", id, "\n")
 	}
 
-	url <- paste("http://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/cid/", id, "/property/InChiKey/TXT", sep="")
+	url <- paste("https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/cid/", id, "/property/InChiKey/TXT", sep="")
 
 	if(debug) {		
 		cat("URL: ", url, "\n")

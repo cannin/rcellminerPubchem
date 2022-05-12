@@ -21,7 +21,7 @@ getCasrnFromNsc <- function(nsc, debug=TRUE) {
 		cat("NSC: ", nsc, "\n")
 	}
 
-	url <- paste("http://pubchem.ncbi.nlm.nih.gov/rest/pug/substance/sourceid/DTP.NCI/", nsc, "/xrefs/RN/TXT", sep="")
+	url <- paste("https://pubchem.ncbi.nlm.nih.gov/rest/pug/substance/sourceid/DTP.NCI/", nsc, "/xrefs/RN/TXT", sep="")
 
 	if(debug) {		
 		cat("URL: ", url, "\n")

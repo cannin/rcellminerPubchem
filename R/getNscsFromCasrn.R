@@ -19,7 +19,7 @@ getNscsFromCasrn <- function(casrn, debug=TRUE) {
 		cat("CasRN: ", casrn, "\n")
 	}
 	
-	url <- paste("http://pubchem.ncbi.nlm.nih.gov/rest/pug/substance/xref/RN/", casrn, "/xrefs/SBURL/TXT", sep="")
+	url <- paste("https://pubchem.ncbi.nlm.nih.gov/rest/pug/substance/xref/RN/", casrn, "/xrefs/SBURL/TXT", sep="")
 	
 	results <- getURL(url)
 	results_vec <- strsplit(results, "\n")[[1]]

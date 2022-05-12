@@ -21,7 +21,7 @@ getNscsFromCid <- function(cid, debug=TRUE) {
 	    return(NA)
 	}
 	
-	url <- paste("http://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/cid/", cid, "/synonyms/txt", sep="")
+	url <- paste("https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/cid/", cid, "/synonyms/txt", sep="")
 	
 	results <- getURL(url)
 	results_vec <- strsplit(results, "\n")[[1]]

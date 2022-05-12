@@ -30,7 +30,7 @@ getChebiFromCasrn <- function(id, debug=TRUE, cachePath=NULL) {
 	  cat("ID: ", id, "\n")
 	}
 	
-	url <- paste0("http://pubchem.ncbi.nlm.nih.gov/rest/pug/substance/xref/RN/", id, "/synonyms/TXT")
+	url <- paste0("https://pubchem.ncbi.nlm.nih.gov/rest/pug/substance/xref/RN/", id, "/synonyms/TXT")
 	
 	if(debug) {		
 		cat("URL: ", url, "\n")
