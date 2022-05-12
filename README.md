@@ -1,16 +1,9 @@
-# Open Project
+# rcellminerPubchem
 
-Open Rproj file in RStudio 
+A collection of R functions to extract information from PubChem
 
 # Install Dependencies 
-    if (!"devtools" %in% installed.packages()) install.packages("devtools")
-    
-    setRepositories(ind=1:6)
-    library(devtools)
 
-    install_deps(".") 
-
-# Run Vignette
-
-Open vignette (Rmd files) from vignettes/ folder and use "Knit HTML" button to generate the HTML file.
-
+```
+devtools::install_github("cannin/rcellminerPubchem")
+```
