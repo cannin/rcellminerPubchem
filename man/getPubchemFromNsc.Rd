@@ -4,16 +4,16 @@
 \alias{getPubchemFromNsc}
 \title{Get PubChem SID/CID value from an NSC using PubChem PUG API}
 \usage{
-getPubchemFromNsc(nsc, type = c("cid", "sid"), debug = TRUE, maxTries = 3)
+getPubchemFromNsc(id, type = "cid", debug = TRUE, cachePath = NULL)
 }
 \arguments{
-\item{nsc}{an NSC ID}
+\item{id}{an NSC ID}
 
 \item{type}{"cid" or "sid" PubChem ID types}
 
 \item{debug}{a boolean, print debug information? (Default: TRUE)}
 
-\item{maxTries}{number of times to re-try query}
+\item{cachePath}{path for cache files}
 }
 \value{
 a PubChem CID/SID or NA, otherwise

@@ -3,7 +3,7 @@
 #' @param id an NSC ID 
 #' @param type "cid" or "sid" PubChem ID types
 #' @param debug a boolean, print debug information? (Default: TRUE)
-#' @param maxTries number of times to re-try query
+#' @param cachePath path for cache files
 #' 
 #' @return a PubChem CID/SID or NA, otherwise
 #' 
@@ -16,8 +16,6 @@
 #' @concept rcellminerPubchem
 #' @export  
 getPubchemFromNsc <- function(id, type="cid", debug=TRUE, cachePath=NULL) {
-  result <- NULL
-  
   if(is.null(cachePath)) {
     setCacheRootPath()
   } else {
@@ -31,9 +29,9 @@ getPubchemFromNsc <- function(id, type="cid", debug=TRUE, cachePath=NULL) {
   }
   
   if(type == "cid") {
-    url <- paste("https://pubchem.ncbi.nlm.nih.gov/rest/pug/substance/sourceid/DTP.NCI/", id, "/cids/TXT", sep="")		
+    url <- paste0("https://pubchem.ncbi.nlm.nih.gov/rest/pug/substance/sourceid/DTP.NCI/", id, "/cids/TXT")		
   } else if(type == "sid") {
-    url <- paste("https://pubchem.ncbi.nlm.nih.gov/rest/pug/substance/sourceid/DTP.NCI/", id, "/sids/TXT", sep="")				
+    url <- paste0("https://pubchem.ncbi.nlm.nih.gov/rest/pug/substance/sourceid/DTP.NCI/", id, "/sids/TXT")				
   } else {
     stop("ERROR: Unknown type argument")
   }
@@ -43,7 +41,39 @@ getPubchemFromNsc <- function(id, type="cid", debug=TRUE, cachePath=NULL) {
   }	
   
   # content() can conflict with BioBase::content()
-  results <- suppressMessages(url %>% GETCached() %>% content("text"))
+  Sys.setenv("PREFIX_SIMPLERCACHE"=paste0("getPubchemFromNsc_", id))
+  
+  #results <- suppressMessages(url %>% GETCached() %>% content("text"))
+  
+  key <- list(fcn=deparse(GET), url=url)
+  callHash <- digest(key)
+  
+  # Set sleep based on whether the call will be retrieved from cache or executed
+  if(length(dir(cacheDir, pattern=callHash)) == 0) {
+    sleep <- ceiling(runif(1, 0, 3))    
+  } else {
+    sleep <- 0
+  }
+
+  tmpHash <- capture.output({ tmp <- url %>% GETCached(url=.) %>% content("text") })
+  resultsHash <- tmpHash %>% trimws %>% sub("keyHash:  ", "", .)
+  results <- paste(tmp, collapse=" ")
+  
+  cat("sleep: ", sleep, " callHash: ", callHash, " resultsHash: ", resultsHash, " Results: ", results, "\n")
+  
+  Sys.setenv("SLEEP_SIMPLERCACHE"=as.character(sleep))
+  
+  if(grepl('Status: 503', results)) {
+    badCacheFile <- dir(cacheDir, pattern=resultsHash)
+    file.remove(file.path(cacheDir, badCacheFile))
+    
+    cat("ERROR: BAD REQUEST: Cache file removed\n")
+  } 
+  
+  if(grepl('Status: 404', results)) {
+    Sys.setenv("SLEEP_SIMPLERCACHE"=as.character(0))
+  }
+  
   resultsVec <- strsplit(results, "\n")[[1]]
 
 	if(debug) {		
@@ -51,12 +81,10 @@ getPubchemFromNsc <- function(id, type="cid", debug=TRUE, cachePath=NULL) {
 		cat("Results Vec: ", resultsVec, "\n")
 	}	
 
-  if(length(resultsVec) > 1) {
-    stop("ERROR: Multiple CIDs returned")
-  }
-  
-	if(length(resultsVec) == 1 && is.na(str_match(resultsVec[1], "Status"))) {
-		cid <- resultsVec[1]	
+	if(length(resultsVec) == 1 && !startsWith(resultsVec, "Status")) {
+		cid <- resultsVec
+	} else {
+	  cid <- NA
 	}
 		
   return(cid) 

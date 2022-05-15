@@ -1,7 +1,7 @@
 Package: rcellminerPubchem
 Title: rcellminerPubchem
-Version: 0.02
-Date: 2022-05-12
+Version: 0.0.4
+Date: 2022-05-13
 Author: Augustin Luna
 Maintainer: Augustin Luna <lunaa@cbio.mskcc.org>
 Description: A collection of R functions to extract information from PubChem
