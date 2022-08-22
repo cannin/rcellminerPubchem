@@ -1,25 +1,26 @@
-#' Get PubChem SID/CID value from an NSC using PubChem PUG API
+#' Get PubChem CID value from a name using PubChem PUG API
 #'
-#' @param id an NSC ID 
-#' @param type "cid" or "sid" PubChem ID types
+#' @param id a name
+#' @param forceFirst a boolean, if multiple entries are returned grab the first? 
 #' @param debug a boolean, print debug information? (Default: TRUE)
 #' @param cachePath path for cache files
 #' 
-#' @return a PubChem CID/SID or NA, otherwise
+#' @return a PubChem CID or NA, otherwise
 #' 
 #' @author Augustin Luna (augustin@mail.nih.gov)
 #' 
 #' @examples
-#' getPubchemFromNsc("94600", "cid") #Should be: 24360
-#' getPubchemFromNsc("94600", "sid") #Should be: 399733
+#' getPubchemFromNsc("trichostatin a") #Should be: 444732
+#' getPubchemFromNsc("aspirin") #Should be: 2244
 #' 
-#' @importFrom simpleRCache setCacheRootPath addMemoization
+#' @importFrom slugify slugify
+#' @importFrom simpleRCache addMemoization setCacheRootPath
 #' @importFrom digest digest
 #' @importFrom httr GET
 #' 
 #' @concept rcellminerPubchem
 #' @export  
-getPubchemFromNsc <- function(id, type="cid", debug=TRUE, cachePath=NULL) {
+getPubchemFromName <- function(id, forceFirst=FALSE, debug=TRUE, cachePath=NULL) {
   if(is.null(cachePath)) {
     setCacheRootPath()
   } else {
@@ -31,21 +32,17 @@ getPubchemFromNsc <- function(id, type="cid", debug=TRUE, cachePath=NULL) {
   if(debug) {
     cat("\nID: ", id, "\n")
   }
-  
-  if(type == "cid") {
-    url <- paste0("https://pubchem.ncbi.nlm.nih.gov/rest/pug/substance/sourceid/DTP.NCI/", id, "/cids/TXT")		
-  } else if(type == "sid") {
-    url <- paste0("https://pubchem.ncbi.nlm.nih.gov/rest/pug/substance/sourceid/DTP.NCI/", id, "/sids/TXT")				
-  } else {
-    stop("ERROR: Unknown type argument")
-  }
-  
+
+  tmpId <- URLencode(id)
+  url <- paste0("https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/name/", tmpId, "/cids/TXT")	
+
   if(debug) {		
     cat("URL: ", url, "\n")
   }	
   
   # content() can conflict with BioBase::content()
-  Sys.setenv("PREFIX_SIMPLERCACHE"=paste0("getPubchemFromNsc_", id))
+  slug <- slugify(id)
+  Sys.setenv("PREFIX_SIMPLERCACHE"=paste0("getPubchemFromName_", slug))
   
   #results <- suppressMessages(url %>% GETCached() %>% content("text"))
   
@@ -87,6 +84,8 @@ getPubchemFromNsc <- function(id, type="cid", debug=TRUE, cachePath=NULL) {
 
 	if(length(resultsVec) == 1 && !startsWith(resultsVec, "Status")) {
 		cid <- resultsVec
+	} else if(forceFirst && !startsWith(resultsVec, "Status")) {
+	  cid <- resultsVec[1]
 	} else {
 	  cid <- NA
 	}
