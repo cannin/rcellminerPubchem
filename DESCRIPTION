@@ -1,9 +1,9 @@
 Package: rcellminerPubchem
 Title: rcellminerPubchem
-Version: 0.0.5
-Date: 2022-05-15
+Version: 0.0.6
+Date: 2024-11-20
 Author: Augustin Luna
-Maintainer: Augustin Luna <lunaa@cbio.mskcc.org>
+Maintainer: Augustin Luna <augustin@nih.gov>
 Description: A collection of R functions to extract information from PubChem
 License: LGPL-3
 Depends:
@@ -18,5 +18,5 @@ Depends:
     slugify
 LazyData: true
 VignetteBuilder: knitr
-RoxygenNote: 7.0.2
+RoxygenNote: 7.1.2
 Encoding: UTF-8
